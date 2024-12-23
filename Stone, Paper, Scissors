@@ -1,0 +1,81 @@
+
+import os
+import random
+
+def clear_screen():
+    os.system('clear')
+
+def show_disclaimer():
+    clear_screen()
+    print('''
+*Disclaimer*
+          "Welcome to Rock, Paper, Scissors Game, version 1.0!
+           We're excited to launch this new game, and we're committed to continuously improving and expanding its features. Currently, you can enjoy a simple yet engaging game of Rock, Paper, Scissors. However, we have big plans for future updates!
+           Stay tuned for new features, game modes, and surprises that will enhance your gaming experience. Our goal is to make this game more enjoyable and challenging with each update.
+           
+*Some upcoming features to look forward to*
+- Multiplayer mode: Compete with friends and other players online
+- Tournament mode: Participate in tournaments and win rewards
+- Customization options: Personalize your game with different themes, avatars, and more
+- Leaderboards: Climb the ranks and become the ultimate Rock, Paper, Scissors champion
+
+We appreciate your feedback and suggestions. Your input will help shape the future of this game.
+Thank you for playing, and get ready for an exciting journey with Rock, Paper, Scissors Game!
+New updates coming soon!
+''')
+    input("Press Enter to continue...")
+    os.system ("clear")    
+
+def play_game():
+    while True:
+        clear_screen()
+        print(''' 
+               [VERSION: 1.2]
+        ''')
+        print(".")
+        print("Type 'disclaimer' to view the game's disclaimer.")
+        
+        choices = ["rock", "paper", "scissors"]
+        score = {"User": 0, "Computer": 0}
+        
+        for i in range(5):
+            Computer = random.choice(choices)
+            User = input(f"Round {i+1}: Do you choose rock, paper or scissors? (or type 'disclaimer'): ").lower()
+            
+            if User == "disclaimer":
+                show_disclaimer()
+                continue
+            
+            while User not in choices:
+                User = input("Invalid choice. Please enter rock, paper or scissors: ").lower()
+                
+            print(f"\nComputer choose={Computer}")
+            
+            if User == Computer:
+                print("WOW! 😊 Same with me hahhaa~😅")
+            elif (User == "rock" and Computer == "scissors") or (User == "scissors" and Computer == "paper") or (User == "paper" and Computer == "rock"):
+                print("You win this round!")
+                score["User"] += 1
+            else:
+                print("You lose this round!")
+                score["Computer"] += 1
+                
+            print(f"\nScore: User - {score['User']}, Computer - {score['Computer']}\n")
+            
+        print("Final Score:")
+        print(f"User - {score['User']}, Computer - {score['Computer']}")
+        
+        if score["User"] > score["Computer"]:
+            print("You win the series!")
+        elif score["User"] < score["Computer"]:
+            print("You lose the series!")
+        else:
+            print("Hahaha~😅Same Score nice!")
+            
+        play_again = input("Play another series? (y/n): ").lower()
+        
+        if play_again != "y":
+            print("Thanks for playing!")
+            break
+
+play_game()
